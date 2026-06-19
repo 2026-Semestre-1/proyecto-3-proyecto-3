@@ -1,4 +1,60 @@
 import random
+#Notas:
+#validar si jugador ya existe en otra seleccion
+#
+#Validacionesy funciones
+class Validaciones:
+    def __init__(self):
+        pass
+    def SinEspacios(self, dato):
+        if dato[0] == " " or dato[-1] == " ":
+            return "El dato no debe tener espacios al inicio o al final."
+        return True
+    def debeser(self, dato, tipo):
+        if not isinstance(dato, tipo):
+            return f"El dato {dato} debe ser del tipo {tipo}."
+        return True
+    def fecha_valida(self,fecha):
+        try:
+            datos=fecha.split("/")
+            dia=int(datos[0])
+            mes=int(datos[1])
+            año=int(datos[2])
+            if dia < 1 or dia > 31:
+                return "El día debe estar entre 1 y 31."
+            if mes < 1 or mes > 12:
+                return "El mes debe estar entre 1 y 12."
+            if año < 1900 or año >= 2026:
+                return "El año debe estar entre 1900 y 2026."
+            return True
+        except:
+            return "La fecha debe tener el formato DD/MM/AAAA."
+    def onceGrandes(self,lista):
+        for i in range(len(lista)):
+            for j in range(len(lista)):
+                if lista[i].puntaje_individual > lista[j].puntaje_individual:
+                    aux = lista[i]
+                    lista[i] = lista[j]
+                    lista[j] = aux
+        return lista[0:11]
+    def fuerza_equipo_def(self,jugadores,entrenador,pais): #jugadores con OnceGrandes()
+        
+        fuerza_equipo=0
+        for jugador in jugadores:
+            fuerza_equipo += jugador.puntaje_individual
+        fuerza_equipo = (fuerza_equipo / 11)*0.6
+        if entrenador.experiencia_anios*4>100:
+            factor_entrenador= 100
+        else:
+            factor_entrenador=entrenador.experiencia_anios*4
+        fuerza_equipo+=factor_entrenador*0.25
+        fuerza_equipo+=(100-pais.ranking_fifa)*0.15    
+        return fuerza_equipo
+
+
+    def fase_valida(self,fase):
+        if not fase.lower() == "dieciseisavos" or fase.lower() == "octavos" or fase.lower() == "cuartos" or fase.lower() == "semifinales" or fase.lower() == "final":
+            return "La fase debe ser una existente"
 class Pais:
     def __init__(self,codigo_fifa, nombre, continente, ranking_fifa):
         if not isinstance(codigo_fifa, str) or len(codigo_fifa) != 3:
@@ -11,10 +67,14 @@ class Pais:
             self.nombre=nombre
         if not isinstance(continente,str):
             raise ValueError("El continente ingresado debe ser texto")
-            if not SinEspacios(continente):
-                raise ValueError("El continente no debe iniciar o terminar ocn espacios.")
-        self.continente = ""
-        self.ranking_fifa = 0
+        else:
+            if Validaciones().SinEspacios(continente) != True:
+                raise ValueError("El continente no debe iniciar o terminar  con espacios.")
+            else:
+                self.continente = continente
+        if not isinstance(ranking_fifa,int):
+            raise ValueError("El rank FIFA debe ser un numero")
+        self.ranking_fifa = ranking_fifa
     def mostrar_datos(self):
         print(f"Código FIFA: {self.codigo_fifa}")
         
@@ -83,7 +143,7 @@ class Entrenador(Persona):
         if sistema_juego is not None:
             self.sistema_juego = sistema_juego
 class Futbolista(Persona):
-    def __init__(self,dorsal,posicion, total_tarjetas_amarillas, total_tarjetas_rojas, goles,asistencias,puntaje_individual):
+    def __init__(self,dorsal,posicion, total_tarjetas_amarillas, tarjetas_roj, goles,asistencias,puntaje_individual):
         if isinstance(dorsal, int) and dorsal > 0 and dorsal <= 99:
             self.dorsal = dorsal
         else:
@@ -96,8 +156,8 @@ class Futbolista(Persona):
             self.total_tarjetas_amarillas = total_tarjetas_amarillas
         else:
             raise ValueError("El total de tarjetas amarillas debe ser un número entero mayor o igual a 0.")
-        if isinstance(total_tarjetas_rojas, int) and total_tarjetas_rojas >= 0:
-            self.total_tarjetas_rojas = total_tarjetas_rojas
+        if isinstance(tarjetas_roj, int) and tarjetas_roj >= 0:
+            self.tarjetas_roj = tarjetas_roj
         else:
             raise ValueError("El total de tarjetas  rojas debe ser un número entero mayor o igual a 0.")
               
@@ -122,11 +182,11 @@ class Futbolista(Persona):
         print(f"Dorsal: {self.dorsal}")
         print(f"Posición: {self.posicion}")
         print(f"Total Tarjetas Amarillas: {self.total_tarjetas_amarillas}")
-        print(f"Total Tarjetas Rojas: {self.total_tarjetas_rojas}")
+        print(f"Total Tarjetas Rojas: {self.tarjetas_roj}")
         print(f"Goles: {self.goles}")
         print(f"Asistencias: {self.asistencias}")
         print(f"Puntaje Individual: {self.puntaje_individual}")
-    def actualizar_datos(self, dorsal, posicion, total_tarjetas_amarillas, total_tarjetas_rojas, goles, asistencias, puntaje_individual):
+    def actualizar_datos(self, dorsal, posicion, total_tarjetas_amarillas, tarjetas_roj, goles, asistencias, puntaje_individual):
         
         if isinstance(dorsal, int) and dorsal > 0 and dorsal <= 99 and dorsal!=None:
             self.dorsal = dorsal
@@ -140,8 +200,8 @@ class Futbolista(Persona):
             self.total_tarjetas_amarillas = total_tarjetas_amarillas
         else:
             raise ValueError("El total de tarjetas amarillas debe ser un número entero mayor o igual a 0.")
-        if isinstance(total_tarjetas_rojas, int) and total_tarjetas_rojas >= 0 and total_tarjetas_rojas!=None:
-            self.total_tarjetas_rojas = total_tarjetas_rojas
+        if isinstance(tarjetas_roj, int) and tarjetas_roj >= 0 and tarjetas_roj!=None:
+            self.tarjetas_roj = tarjetas_roj
         else:
             raise ValueError("El total de tarjetas  rojas debe ser un número entero mayor o igual a 0.")
               
@@ -156,7 +216,7 @@ class Futbolista(Persona):
         if puntaje_individual ==None:
             self.puntaje_individual = random.randint(4, 100)
         else:
-            if (puntaje_individual).lower!="original":
+            if (puntaje_individual).lower()!="original":
                 if isinstance(puntaje_individual, int) and puntaje_individual > 0 and puntaje_individual <= 100:
                     self.puntaje_individual = puntaje_individual
                 else:
@@ -166,81 +226,127 @@ class Futbolista(Persona):
     def registrar_asistencia(self):
         self.asistencias += 1
     def registrar_tarjeta(self, tipo):
-        if tipo == "amarilla":
+        if tipo.lower() == "amarilla":
             self.total_tarjetas_amarillas += 1
-        elif tipo == "roja":
-            self.total_tarjetas_rojas += 1
+        elif tipo.lower() == "roja":
+            self.tarjetas_roj += 1
         else:
             print("Tipo de tarjeta inválido. Debe ser amarilla o roja.")
+    def dorsal(self):
+        print(self.dorsal)
 class Seleccion:
+
     codigo_equipo=0
-    def __init__(self,pais,entrenador,jugadores,total_goles_favor,total_goles_contra,total_tarjetas_amarillas,total_tarjetas_rojas,fuerza_equipo):
+    def __init__(self,pais,entrenador): #,jugadores,goles_favor,goles_contra,total_tarjetas_amarillas,tarjetas_roj
+        
         if not isinstance(pais,object) or not isinstance(entrenador,object):
            raise ValueError("El país y entrenador deben ser objetos válidos.") 
         else:
             self.pais = pais
+        if not isinstance(entrenador,Entrenador):
+            raise ValueError("El entrenador ingresado no existe")
+        else:
             self.entrenador = entrenador
-        if not isinstance(total_goles_favor, int) or total_goles_favor < 0:
+        """
+        if not isinstance(goles_favor, int) or goles_favor < 0:
             raise ValueError("El total de goles a favor debe ser un número entero mayor o igual a 0.")
         else:
-            self.total_goles_favor = total_goles_favor
-        if not isinstance(total_goles_contra, int) or total_goles_contra < 0:
+            self.goles_favor = goles_favor
+        if not isinstance(goles_contra, int) or goles_contra < 0:
             raise ValueError("El total de goles en contra debe ser un número entero mayor o igual a 0.")
         else:
-            self.total_goles_contra = total_goles_contra
+            self.goles_contra = goles_contra
         if not isinstance(total_tarjetas_amarillas, int) or total_tarjetas_amarillas < 0:
             raise ValueError("El total de tarjetas amarillas debe ser un número entero mayor o igual a 0.")
         else:
             self.total_tarjetas_amarillas = total_tarjetas_amarillas
-        if not isinstance(total_tarjetas_rojas, int) or total_tarjetas_rojas < 0:
+        if not isinstance(tarjetas_roj, int) or tarjetas_roj < 0:
             raise ValueError("El total de tarjetas rojas debe ser un número entero mayor o igual a 0.")
         else:
-            self.total_tarjetas_rojas = total_tarjetas_rojas
-       
-        for jugador in jugadores:
-            fuerza_equipo += jugador.puntaje_individual
-        fuerza_equipo = (fuerza_equipo / len(jugadores))*0.6
-        if entrenador.experiencia_anios*4>100:
-            factor_entrenador= 100
-        else:
-            factor_entrenador=entrenador.experiencia_anios*4
-        fuerza_equipo+=factor_entrenador*0.25
-        factor_entrenador+=pais.ranking_fifa*0.15
-       
-       #jugadores,fuerza_equipo
+            self.tarjetas_roj = tarjetas_roj
+        if isinstance(jugadores,list):
+            if not len(jugadores)>=11 and len(jugadores)<=23:
+                raise ValueError("El tamaño de el equipo noo es permitido.")
+            for i in jugadores:
+                if isinstance(i,object):
+                    for jugador in jugadores:
+                        for jugadorComparar in jugadores:
+                            if jugador==jugadorComparar:
+                                raise ValueError("Los jugadores no pueden estar repetidos.")
 
-#Emanuel (arriba)
-class Validaciones:
-    def __init__(self):
-        pass
-    def SinEspacios(self, dato):
-        if dato[0] == " " or dato[-1] == " ":
-            return "El dato no debe tener espacios al inicio o al final."
-        return True
-    def debeser(self, dato, tipo):
-        if not isinstance(dato, tipo):
-            return f"El dato {dato} debe ser del tipo {tipo}."
-        return True
-    def fecha_valida(self,fecha):
+                else:
+                    raise ValueError("Lista de jugadores debe ser de objetos.")
+        raise ValueError("Los jugadores deben estar en una lista.")
+        """
+        self.jugadores=[]
+        self.goles_favor=0
+        self.goles_contra = 0
+        self.total_tarjetas_amarillas= 0
+        self.tarjetas_roj= 0
+        Seleccion.contador_equipos+=1
+        self.codigo_equipo = Seleccion.contador_equipos
+        
+       
+       
+    def mostrar_datos(self):
+        print("Jugadores")
+        for i in self.jugadores:
+              print (i)
+        print(""")
+        Total Goles: {self.goles_favor}
+        Total Goles en contra: {self.goles_contra}
+        Total amarillas: {self.total_tarjetas_amarillas} 
+        Total Rojas: {self.tarjetas_roj}
+        Fuerza equipo: {self.fuerza_equipo}
+        Pais: {self.pais}
+        Entrenador: {self.entrenador}
+        """)
+        
+    def agregar_jugador(self,futbolista):
+        if not isinstance(futbolista,Futbolista):
+            return"el futbolista no se ha encontrado"
+        for i in self.jugadores:
+            if i.dorsal()==futbolista.dorsal():
+                return "futbolista ya registrado"
+        self.jugadores+=futbolista
+    def eliminar_jugador(self,futbolista):
+        if not isinstance(futbolista,Futbolista):
+            return"el futbolista no se ha encontrado"
+        aux=[]
+        for i in self.jugadores:
+            if i.dorsal()!=futbolista.dorsal():
+                aux+=futbolista
+        self.jugadores=aux
+        aux=[]
+        return self.jugadores
+    def asignar_entrenador(self, entrenador):
+        if not isinstance(entrenador,Entrenador):
+            return "Entrenador no encontrado."
+        self.entrenador=entrenador
+    def calcular_fuerza_equipo(self):
         try:
-            datos=fecha.split("/")
-            dia=int(datos[0])
-            mes=int(datos[1])
-            año=int(datos[2])
-            if dia < 1 or dia > 31:
-                return "El día debe estar entre 1 y 31."
-            if mes < 1 or mes > 12:
-                return "El mes debe estar entre 1 y 12."
-            if año < 1900 or año >= 2026:
-                return "El año debe estar entre 1900 y 2026."
-            return True
-        except:
-            return "La fecha debe tener el formato DD/MM/AAAA."
+            fuerza_equipo=Validaciones().fuerza_equipo_def(Validaciones().onceGrandes(self.jugadores),self.entrenador,self.pais)
+        except: 
+            return ("algo ha fallado, verifique sus datos, el minimo de jugadores es 11 y maximo23.")
+    def registrar_resultado(self,goles_favor, goles_contra, tarjetas_am, tarjetas_roj):
+        if not isinstance(goles_favor, int) or goles_favor < 0:
+            return("El total de goles a favor debe ser un número entero mayor o igual a 0.")
+        else:
+            self.total_goles_favor += goles_favor
+        if not isinstance(goles_contra, int) or goles_contra < 0:
+            return("El total de goles en contra debe ser un número entero mayor o igual a 0.")
+        else:
+            self.total_goles_contra += goles_contra
+        if not isinstance(tarjetas_am, int) and tarjetas_am < 0:
+            return("El total de tarjetas amarillas debe ser un número entero mayor o igual a 0.")
+        else:
+            self.total_tarjetas_amarillas+= tarjetas_am
+        if not isinstance(tarjetas_roj, int) or tarjetas_roj < 0:
+            return("El total de tarjetas rojas debe ser un número entero mayor o igual a 0.")
+        else:
+            self.tarjetas_roj += tarjetas_roj
+#Emanuel (arriba)
 
-
-    def fase_valida(self,fase):
-        if not fase == "Dieciseisavos" or fase == "Octavos" or fase == "Cuartos" or fase == "Semifinales" or fase == "Final":
-            return "La fase debe ser una existente"
             
         
 # -----------------------------------------------------------------------------------
@@ -318,12 +424,11 @@ class Partido:
                 self.goles_equipo2 = equipofuerte
                 self.goles_equipo1 = equipodebil
     #############################################################################
-    
-    
     #Validacion de empates para juegos de fase de grupos
     def generar_ganadores(self):
         if self.goles_equipo1 == self.goles_equipo2:
-            print (f"Empate entre {self.equipo1} y {self.equip}  ")
+            self.ganador = "Empate"
+            print (f"Empate entre {self.equipo1} y {self.equip02}  ")
         else:
             if self.goles_equipo1 > self.goles_equipo2:
                 self.ganador = self.equipo1
@@ -348,19 +453,147 @@ class Grupo:
         self.partidos = []
 
 
-    def agregar_equipo(self, seleccion):
+    def agregar_equipo(self, seleccion, fuerza):
         if len(self.equipos) >= 4:
             print("No se pueden agregar más equipos al grupo.")
             return
         if not Validaciones().debeser(seleccion, str):
             print(Validaciones().debeser(seleccion, str))
         else:
-            self.equipos += [seleccion]
+            self.equipos += [[seleccion]+ [fuerza]]
+
+    def jugar_partidos(self):
+        if len(self.equipos) != 4:
+            return "No se puede empezar los partidos porque el grupo esta incompleto"
+        else:
+            for Equipo1 in range(len(self.equipos)):
+                for Equipo2 in range(Equipo1 + 1, len(self.equipos)):
+                    nombre1 = self.equipos[Equipo1][0]
+                    fuerza1 = self.equipos[Equipo1][1]
+                    nombre2 = self.equipos[Equipo2][0]
+                    fuerza2 = self.equipos[Equipo2][1]
+                    partido = Partido(len(self.partidos) +1, nombre1, nombre2, self.nombre_grupo, "20/06/2026")
+              
+                    partido.simular(fuerza1, fuerza2)
+                    partido.generar_ganadores()
+                    self.partidos += [partido] 
+
+                    print (partido.mostrar_resultados())
+
+    def calcular_tabla(self):
+        tabla = []
+        for equipo in self.equipos:
+            nombre = equipo[0]
+            tabla += [[nombre,0,0,0,0]]
+
+        for partido in self.partidos:
+            equipo1 = partido.equipo1
+            equipo2 = partido.equipo2
+            goles1 = partido.goles_equipo1
+            goles2 = partido.goles_equipo2
+            #funcion para buscar manualmente los indices en las filas de los equipos
+            indices1 = 0
+            indices2 = 0
+            for indice in range(4):
+                if tabla[indice][0] == equipo1:
+                    indices1 = indice
+                if tabla[indice][0] == equipo2:
+                    indices2 = indice
+
+
+            #Actualiza Goles a favor y goles en contra
+            tabla[indices1][1] += goles1
+            tabla[indices1][2] += goles2
+            tabla[indices2][1] += goles2
+            tabla[indices2][2] += goles1
+
+            #Actualiza las diferencias de goles
+            tabla[indices1][3] = tabla[indices1][1] - tabla[indices1][2]
+            tabla[indices2][3] = tabla[indices2][1] - tabla[indices2][2]
+
+            if partido.ganador == "Empate":
+                tabla[indices1][4] += 1
+                tabla[indices2][4] += 1
+
+            elif partido.ganador == equipo1:
+                tabla[indices1][4] += 3
+            else:
+                tabla[indices2][4] +=3
+
+        for indice1 in range(4):
+            for indice2 in range(0,4 - indice1 - 1):
+                if tabla[indice2][4] < tabla[indice2 + 1][4]:
+                    temporal = tabla[indice2]
+                    tabla[indice2] = tabla[indice2 + 1]
+                    tabla[indice2 + 1] = temporal
+
+                elif tabla[indice2][4] == tabla[indice2 + 1][4]:
+                    if tabla[indice2][3] < tabla[indice2 + 1][3]:
+                        temporal = tabla[indice2]
+                        tabla[indice2] = tabla[indice2 + 1]
+                        tabla[indice2 + 1] = temporal
+        return tabla
+    
+    
+    def obtener_clasificados(self):
+        tabla = self.calcular_tabla()
+        clasificados = []
+        for i in range(2):
+            clasificados += [tabla[i][0]]
+        return clasificados
+    
+    def mostrar_tabla(self):
+        tabla = self.calcular_tabla()
+        print(f"Tabla del Grupo {self.nombre_grupo}")
+        print("Equipo | GF | GC | DG | P")
+        for fila in tabla:
+            print(f"{fila[0]} | {fila[1]} | {fila[2]} | {fila[3]} | {fila[4]}")
+
         
-
-
-
-
+class Fase:
+    def __init__(self, fase):
+        if not Validaciones().debeser(fase, str):
+            print(Validaciones().debeser(fase, str))
+        else:
+            if not Validaciones().fase_valida(fase):
+                print(Validaciones().fase_valida(fase))
+            else:
+                self.fase = fase
+        self.partidos = []
+    def agregar_partido(self, equipo1, equipo2, fuerza1, fuerza2):
+        id_partido = len(self.partidos) + 1
+        partido = Partido(id_partido, equipo1, equipo2, self.fase, "20/06/2026")
+        partido.simular(fuerza1, fuerza2)
+        
+        if partido.goles_equipo1 == partido.goles_equipo2:
+            self.penales1 = 0
+            self.penales2 = 0
+            while self.penales1 == self.penales2:
+                self.penales1 = random.randint(0, 5)
+                self.penales2 = random.randint(0, 5)
+            partido.goles_equipo1 += self.penales1
+            partido.goles_equipo2 += self.penales2
+            
+        partido.generar_ganadores()
+        self.partidos += [partido]
+        
+    def jugar_partidos(self):
+        for partido in self.partidos:
+            print(partido.mostrar_resultados())
+            
+    def mostrar_juegos(self):
+        for partido in self.partidos:
+            print(f"Partido: {partido.equipo1} vs {partido.equipo2}")
+            print(f"Goles: {partido.goles_equipo1} - {partido.goles_equipo2}")
+            print(f"Ganador: {partido.ganador}")
+            print(f"Fecha: {partido.fecha}")
+    def obtener_clasificados(self):
+        ganadores = []
+        for partido in self.partidos:
+            ganadores += [partido.ganador]
+        return ganadores
+    
+class Mundial:
 
 
 
