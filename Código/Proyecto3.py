@@ -3,6 +3,9 @@ import random
 #validar si jugador ya existe en otra seleccion
 #
 #Validacionesy funciones
+
+grupos = ["Grupo A", "Grupo B", "Grupo C", "Grupo D", "Grupo E", "Grupo F", "Grupo G", "Grupo H", "Grupo I", "Grupo J", "Grupo K", "Grupo L",]
+
 class Validaciones:
     def __init__(self):
         pass
@@ -53,8 +56,10 @@ class Validaciones:
 
 
     def fase_valida(self,fase):
-        if not fase.lower() == "dieciseisavos" or fase.lower() == "octavos" or fase.lower() == "cuartos" or fase.lower() == "semifinales" or fase.lower() == "final":
+        fases_validas = [grupos,"dieciseisavos", "octavos", "cuartos", "semifinales", "final"]
+        if not fase.lower() in fases_validas: 
             return "La fase debe ser una existente"
+        return True
 class Pais:
     def __init__(self,codigo_fifa, nombre, continente, ranking_fifa):
         if not isinstance(codigo_fifa, str) or len(codigo_fifa) != 3:
@@ -353,46 +358,54 @@ class Seleccion:
 #Kerry
 
 class Partido:
-    def __init__(self,id_partido,equipo1, equipo2, fase, fecha):
+    def __init__(self,id_partido,equipo1, equipo2, fase, fecha, mundial):
 
         if not Validaciones().debeser(id_partido, int):
             print(Validaciones().debeser(id_partido,int))
+            return
         else: 
             self.id = id_partido
-        if not Validaciones().debeser(equipo1, str):
-            print(Validaciones().debeser(equipo1, str))
-        else:
-            self.equipo1 = equipo1
-        
-        if not Validaciones().debeser(equipo2, str):
-            print(Validaciones().debeser(equipo2, str))
             
-        else:
-            self.equipo2 = equipo2
-        
-        if not Validaciones().fecha_valida(fecha):
-            print(Validaciones().fecha_valida(fecha))
-        else:
-            self.fecha = fecha
-        
-        if not Validaciones().debeser(fase,str):
-            print(Validaciones().debeser(fase,str))
-        else:
-            if not Validaciones().fase_valida(fase):
-                print(Validaciones().fase_valida(fase))
-            else:
-                self.fase = fase
+        self.equipo1 = equipo1
+        self.equipo2 = equipo2
+        self.fecha = fecha
+        self.fase = fase
+        self.mundial = mundial
         self.goles_equipo1 = 0
         self.goles_equipo2 = 0
         self.ganador = ""
         
+    def Desempate(self, equipo1, equipo2):
+            self.penales1 = 0
+            self.penales2 = 0
+            while self.penales1 == self.penales2:
+                self.penales1 = random.randint(0, 5)
+                self.penales2 = random.randint(0, 5)
+                
+            if self.penales1 > self.penales2:
+                self.ganador = equipo1
+            else:
+                self.ganador = equipo2
+        
     ############################################################################
-    def simular(self, equipo1_fuerza, equipo2_fuerza):
-    
-        self.fuerza1 = equipo1_fuerza
-        self.fuerza2 = equipo2_fuerza
+    def simular(self):
+        equipo1 = None
+        equipo2 = None
+        for seleccion in Mundial.selecciones:
+            if seleccion.pais.nombre == self.equipo1:
+                equipo1 = seleccion
+            if seleccion.pais.nombre == self.equipo2:
+                equipo2 = seleccion
+                
+        if equipo1 is None or equipo2 is None:
+            print(f"No se encontraron las selecciones para el partido: {self.equipo1} vs {self.equipo2}")
+            return
+        self.fuerza1 = equipo1.calcular_fuerza_equipo()
+        self.fuerza2 = equipo2.calcular_fuerza_equipo()
+        
         equipofuerte = 0
         equipodebil = 0
+    
 
         if self.fuerza1 > self.fuerza2:
             fuerte = self.fuerza1
@@ -427,8 +440,11 @@ class Partido:
     #Validacion de empates para juegos de fase de grupos
     def generar_ganadores(self):
         if self.goles_equipo1 == self.goles_equipo2:
-            self.ganador = "Empate"
-            print (f"Empate entre {self.equipo1} y {self.equip02}  ")
+            if self.fase != "Grupo":
+                 self.Desempate(self.equipo1, self.equipo2)
+            else:
+                self.ganador = "Empate"
+                print (f"Empate entre {self.equipo1} y {self.equipo2}  ")
         else:
             if self.goles_equipo1 > self.goles_equipo2:
                 self.ganador = self.equipo1
@@ -447,6 +463,7 @@ class Grupo:
     def __init__(self, nombre_grupo):
         if not Validaciones().debeser(nombre_grupo, str):
             print(Validaciones().debeser(nombre_grupo, str))
+            return
         else:
             self.nombre_grupo = nombre_grupo
         self.equipos = []
@@ -457,15 +474,17 @@ class Grupo:
         if len(self.equipos) >= 4:
             print("No se pueden agregar más equipos al grupo.")
             return
-        if not Validaciones().debeser(seleccion, str):
-            print(Validaciones().debeser(seleccion, str))
+        if not Validaciones().debeser(seleccion, Seleccion):
+            print(Validaciones().debeser(seleccion, Seleccion))
+            return
         else:
-            self.equipos += [[seleccion]+ [fuerza]]
+            self.equipos += [[seleccion],[fuerza]]
 
     def jugar_partidos(self):
         if len(self.equipos) != 4:
             return "No se puede empezar los partidos porque el grupo esta incompleto"
-        else:
+        
+        else:   
             for Equipo1 in range(len(self.equipos)):
                 for Equipo2 in range(Equipo1 + 1, len(self.equipos)):
                     nombre1 = self.equipos[Equipo1][0]
@@ -548,37 +567,29 @@ class Grupo:
         print("Equipo | GF | GC | DG | P")
         for fila in tabla:
             print(f"{fila[0]} | {fila[1]} | {fila[2]} | {fila[3]} | {fila[4]}")
-
-        
+     
 class Fase:
-    def __init__(self, fase):
+    def __init__(self, fase,mundial):
         if not Validaciones().debeser(fase, str):
             print(Validaciones().debeser(fase, str))
+            return
         else:
             if not Validaciones().fase_valida(fase):
                 print(Validaciones().fase_valida(fase))
             else:
                 self.fase = fase
+        self.mundial = mundial
         self.partidos = []
     def agregar_partido(self, equipo1, equipo2, fuerza1, fuerza2):
         id_partido = len(self.partidos) + 1
         partido = Partido(id_partido, equipo1, equipo2, self.fase, "20/06/2026")
-        partido.simular(fuerza1, fuerza2)
-        
-        if partido.goles_equipo1 == partido.goles_equipo2:
-            self.penales1 = 0
-            self.penales2 = 0
-            while self.penales1 == self.penales2:
-                self.penales1 = random.randint(0, 5)
-                self.penales2 = random.randint(0, 5)
-            partido.goles_equipo1 += self.penales1
-            partido.goles_equipo2 += self.penales2
-            
-        partido.generar_ganadores()
         self.partidos += [partido]
+        
         
     def jugar_partidos(self):
         for partido in self.partidos:
+            partido.simular(partido.fuerza1, partido.fuerza2)
+            partido.generar_ganadores()
             print(partido.mostrar_resultados())
             
     def mostrar_juegos(self):
@@ -594,6 +605,153 @@ class Fase:
         return ganadores
     
 class Mundial:
+    def  __init__(self, nombre, año):
+        if not Validaciones().debeser(nombre, str):
+            print(Validaciones().debeser(nombre, str))
+            return
+        else:
+            self.nombre = nombre
+        if not Validaciones().debeser(año, int) or año < 1900 or año >= 2026:
+            print(Validaciones().debeser(año, int))
+            return
+        else:
+            self.año = año
+        self.paises = []
+        self.selecciones = []
+        self.grupos = []
+        self.fases = []
+        campeon = None
+    def agregar_pais(self, pais):
+        if not isinstance(pais, Pais):
+            print("El país ingresado no es válido.")
+            return
+        else:
+            self.paises += [pais]
+            archivo = open("paises.txt", "a", encoding="utf-8")
+            archivo.write(f"{pais.codigo_fifa}, {pais.nombre}, {pais.continente}, {pais.ranking_fifa}\n")
+            archivo.close()
+    def registrar_seleccion(self, seleccion):
+        if not isinstance(seleccion, Seleccion):
+            print("La selección ingresada no es válida.")
+            return
+        else:
+            self.selecciones += [seleccion]
+            archivo = open("selecciones.txt", "a", encoding="utf-8")
+            archivo.write(f"{seleccion.codigo_fifa}, {seleccion.nombre}, {seleccion.pais}\n")
+            archivo.close()
+    def crear_grupos(self, cantidad_grupos):
+        if not Validaciones().debeser(cantidad_grupos, int) or cantidad_grupos <= 0:
+            print(Validaciones().debeser(cantidad_grupos,int))
+            return
+            
+        elif cantidad_grupos > len(grupos):
+            print(f"No se pueden crear {cantidad_grupos} grupos. El número máximo de grupos es {len(grupos)}.")
+            return
+        elif len(self.selecciones) / cantidad_grupos != 4:
+            print("El número de grupos debe ser tal que cada grupo tenga 4 equipos.")   
+            return
+        else:
+            
+            selecciones = 0  
+            
+            for i in range(cantidad_grupos):
+            
+                nombre_grupo = grupos[i]
+                grupo = Grupo(nombre_grupo)
+                
+                for sele in range(4):
+                    seleccion_actual = self.selecciones[selecciones]
+                    fuerza_equipo = seleccion_actual.calcular_fuerza_equipo()
+                    
+                grupo.agregar_equipo(seleccion_actual, fuerza_equipo)
+                selecciones += 1
+            
+            
+            self.grupos += [grupo]
+            
+    def jugar_fase_grupos(self):
+        for grupo in self.grupos:
+            grupo.jugar_partidos()
+            grupo.mostrar_tabla()
+            print(f"Equipos clasificados del {grupo.nombre_grupo}: {grupo.obtener_clasificados()}")
+
+    def armar_fase_eliminatoria(self):
+        fases = ["dieciseisavos", "octavos", "cuartos", "semifinales", "final"]
+        fase_actual = fases[0]
+        
+        fase_eliminatoria = Fase(fase_actual)
+        
+        for grupo in range(0, len(self.grupos), 2):
+            grupo_actual = self.grupos[grupo]
+            grupo_siguiente = self.grupos[grupo + 1]
+            clasificados_A = grupo_actual.obtener_clasificados()
+            clasificados_B = grupo_siguiente.obtener_clasificados()
+            
+            cruces = [(clasificados_A[0], clasificados_B[1]), (clasificados_A[1], clasificados_B[0])]
+    
+            for nome1, nome2 in cruces:
+                fase_eliminatoria.agregar_partido(nome1, nome2)
+                
+        self.fases += [fase_eliminatoria]
+            
+
+ 
+  
+    def jugar_fase_eliminatoria(self):
+        for fase in self.fases:
+            fase.jugar_partidos()
+            fase.mostrar_juegos()
+            clasificados = fase.obtener_clasificados()
+            print(f"Equipos clasificados de la {fase.fase}: {clasificados}")
+            
+    def determinar_campeon(self):
+        if self.fases:
+            ultima_fase = self.fases[-1]
+            if ultima_fase.partidos:
+                ultimo_partido = ultima_fase.partidos[-1]
+                self.campeon = ultimo_partido.ganador
+                print(f"El campeón del Mundial {self.nombre} {self.año} es: {self.campeon}")
+            else:
+                print("No se han jugado partidos en la última fase.")
+                return
+    def mostrar_tabla_general(self):
+        possicion = 1
+        print(f"Table General del Mundial {self.nombre} {self.año}")
+        print("Posicion | Equipo | GF| GC | DG | Puntos")
+        for grupo in self.grupos:
+            tabla = grupo.calcular_tabla()
+            for fila in tabla:
+                print(f"{possicion} | {fila[0]} | {fila[1]} | {fila[2]} | {fila[3]} | {fila[4]}")
+                possicion += 1
+    
+    def generar_reportes(self):
+        archivo = open("reporte.txt", "w", encoding="utf-8")
+        archivo.write(f"Resumen del Mundial {self.nombre} {self.año}\n")
+        archivo.write("Equipos:\n")
+        for seleccion in self.selecciones:
+            archivo.write(f"{seleccion.pais.nombre} - Entrenador: {seleccion.entrenador.nombre} {seleccion.entrenador.apellido}\n")
+            archivo.write("Jugadores:\n")
+            for jugador in seleccion.jugadores:
+                archivo.write(f"{jugador.nombre} {jugador.apellido} - Posición: {jugador.posicion}, Goles: {jugador.goles}, Asistencias: {jugador.asistencias}, Puntaje: {jugador.puntaje_individual}\n")
+        archivo.write("\nResultados de la fase de grupos:\n")
+        for grupo in self.grupos:
+            archivo.write(f"{grupo.nombre_grupo}:\n")
+            for partido in grupo.partidos:
+                archivo.write(f"{partido.equipo1} {partido.goles_equipo1} - {partido.goles_equipo2} {partido.equipo2} | Ganador: {partido.ganador}\n")
+        archivo.write("\nResultados de la fase eliminatoria:\n")
+        for fase in self.fases:
+            archivo.write(f"{fase.fase}:\n")
+            for partido in fase.partidos:
+                archivo.write(f"{partido.equipo1} {partido.goles_equipo1} - {partido.goles_equipo2} {partido.equipo2} | Ganador: {partido.ganador}\n")
+        archivo.write(f"\nCampeón: {self.campeon}\n")
+                
+        archivo.close()
+            
+                
+        
+        
+
+        
 
 
 
