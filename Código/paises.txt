@@ -1,0 +1,12 @@
+CRC,Costa Rica,CONCACAF,45
+BRA,Brasil,CONMEBOL,2
+ARG,Argentina,CONMEBOL,1
+ESP,España,UEFA,4
+GER,Alemania,UEFA,10
+FRA,Francia,UEFA,3
+ENG,Inglaterra,UEFA,5
+POR,Portugal,UEFA,8
+USA,Estados Unidos,CONCACAF,12
+MEX,México,CONCACAF,15
+JPN,Japón,AFC,18
+KOR,Corea del Sur,AFC,22

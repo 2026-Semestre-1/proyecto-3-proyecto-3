@@ -1,0 +1,12 @@
+CRC,Luis,Fernandez,15/04/1970,Costa Rica,PRO,18,4-3-3
+BRA,Carlos,Silva,20/06/1968,Brasil,PRO,25,4-2-3-1
+ARG,Diego,Ramirez,12/08/1972,Argentina,PRO,22,4-3-3
+ESP,Jose,Lopez,18/01/1969,España,PRO,21,4-3-3
+GER,Hans,Muller,11/11/1966,Alemania,PRO,28,3-5-2
+FRA,Jean,Dupont,03/09/1971,Francia,PRO,19,4-2-3-1
+ENG,John,Smith,14/07/1967,Inglaterra,PRO,27,4-4-2
+POR,Miguel,Santos,05/03/1973,Portugal,PRO,17,4-3-3
+USA,Robert,Johnson,22/10/1974,Estados Unidos,PRO,15,4-4-2
+MEX,Javier,Hernandez,09/02/1972,México,PRO,20,4-2-3-1
+JPN,Kenji,Tanaka,16/06/1975,Japón,PRO,16,3-4-3
+KOR,Park,Minsoo,01/05/1973,Corea del Sur,PRO,18,4-3-3

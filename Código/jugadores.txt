@@ -1,0 +1,132 @@
+CRC,Jugador1,CRC,01/01/1995,Costa Rica,1,Portero,0,0,0,0,81
+CRC,Jugador2,CRC,01/01/1995,Costa Rica,2,Defensa,0,0,0,0,82
+CRC,Jugador3,CRC,01/01/1995,Costa Rica,3,Defensa,0,0,0,0,83
+CRC,Jugador4,CRC,01/01/1995,Costa Rica,4,Defensa,0,0,0,0,84
+CRC,Jugador5,CRC,01/01/1995,Costa Rica,5,Defensa,0,0,0,0,85
+CRC,Jugador6,CRC,01/01/1995,Costa Rica,6,Volante,0,0,0,0,86
+CRC,Jugador7,CRC,01/01/1995,Costa Rica,7,Volante,0,0,0,0,87
+CRC,Jugador8,CRC,01/01/1995,Costa Rica,8,Volante,0,0,1,0,88
+CRC,Jugador9,CRC,01/01/1995,Costa Rica,9,Delantero,0,0,2,1,89
+CRC,Jugador10,CRC,01/01/1995,Costa Rica,10,Delantero,0,0,3,2,90
+CRC,Jugador11,CRC,01/01/1995,Costa Rica,11,Delantero,0,0,4,3,91
+BRA,Jugador1,BRA,01/01/1995,Brasil,1,Portero,0,0,0,0,81
+BRA,Jugador2,BRA,01/01/1995,Brasil,2,Defensa,0,0,0,0,82
+BRA,Jugador3,BRA,01/01/1995,Brasil,3,Defensa,0,0,0,0,83
+BRA,Jugador4,BRA,01/01/1995,Brasil,4,Defensa,0,0,0,0,84
+BRA,Jugador5,BRA,01/01/1995,Brasil,5,Defensa,0,0,0,0,85
+BRA,Jugador6,BRA,01/01/1995,Brasil,6,Volante,0,0,0,0,86
+BRA,Jugador7,BRA,01/01/1995,Brasil,7,Volante,0,0,0,0,87
+BRA,Jugador8,BRA,01/01/1995,Brasil,8,Volante,0,0,1,0,88
+BRA,Jugador9,BRA,01/01/1995,Brasil,9,Delantero,0,0,2,1,89
+BRA,Jugador10,BRA,01/01/1995,Brasil,10,Delantero,0,0,3,2,90
+BRA,Jugador11,BRA,01/01/1995,Brasil,11,Delantero,0,0,4,3,91
+ARG,Jugador1,ARG,01/01/1995,Argentina,1,Portero,0,0,0,0,81
+ARG,Jugador2,ARG,01/01/1995,Argentina,2,Defensa,0,0,0,0,82
+ARG,Jugador3,ARG,01/01/1995,Argentina,3,Defensa,0,0,0,0,83
+ARG,Jugador4,ARG,01/01/1995,Argentina,4,Defensa,0,0,0,0,84
+ARG,Jugador5,ARG,01/01/1995,Argentina,5,Defensa,0,0,0,0,85
+ARG,Jugador6,ARG,01/01/1995,Argentina,6,Volante,0,0,0,0,86
+ARG,Jugador7,ARG,01/01/1995,Argentina,7,Volante,0,0,0,0,87
+ARG,Jugador8,ARG,01/01/1995,Argentina,8,Volante,0,0,1,0,88
+ARG,Jugador9,ARG,01/01/1995,Argentina,9,Delantero,0,0,2,1,89
+ARG,Jugador10,ARG,01/01/1995,Argentina,10,Delantero,0,0,3,2,90
+ARG,Jugador11,ARG,01/01/1995,Argentina,11,Delantero,0,0,4,3,91
+ESP,Jugador1,ESP,01/01/1995,España,1,Portero,0,0,0,0,81
+ESP,Jugador2,ESP,01/01/1995,España,2,Defensa,0,0,0,0,82
+ESP,Jugador3,ESP,01/01/1995,España,3,Defensa,0,0,0,0,83
+ESP,Jugador4,ESP,01/01/1995,España,4,Defensa,0,0,0,0,84
+ESP,Jugador5,ESP,01/01/1995,España,5,Defensa,0,0,0,0,85
+ESP,Jugador6,ESP,01/01/1995,España,6,Volante,0,0,0,0,86
+ESP,Jugador7,ESP,01/01/1995,España,7,Volante,0,0,0,0,87
+ESP,Jugador8,ESP,01/01/1995,España,8,Volante,0,0,1,0,88
+ESP,Jugador9,ESP,01/01/1995,España,9,Delantero,0,0,2,1,89
+ESP,Jugador10,ESP,01/01/1995,España,10,Delantero,0,0,3,2,90
+ESP,Jugador11,ESP,01/01/1995,España,11,Delantero,0,0,4,3,91
+GER,Jugador1,GER,01/01/1995,Alemania,1,Portero,0,0,0,0,81
+GER,Jugador2,GER,01/01/1995,Alemania,2,Defensa,0,0,0,0,82
+GER,Jugador3,GER,01/01/1995,Alemania,3,Defensa,0,0,0,0,83
+GER,Jugador4,GER,01/01/1995,Alemania,4,Defensa,0,0,0,0,84
+GER,Jugador5,GER,01/01/1995,Alemania,5,Defensa,0,0,0,0,85
+GER,Jugador6,GER,01/01/1995,Alemania,6,Volante,0,0,0,0,86
+GER,Jugador7,GER,01/01/1995,Alemania,7,Volante,0,0,0,0,87
+GER,Jugador8,GER,01/01/1995,Alemania,8,Volante,0,0,1,0,88
+GER,Jugador9,GER,01/01/1995,Alemania,9,Delantero,0,0,2,1,89
+GER,Jugador10,GER,01/01/1995,Alemania,10,Delantero,0,0,3,2,90
+GER,Jugador11,GER,01/01/1995,Alemania,11,Delantero,0,0,4,3,91
+FRA,Jugador1,FRA,01/01/1995,Francia,1,Portero,0,0,0,0,81
+FRA,Jugador2,FRA,01/01/1995,Francia,2,Defensa,0,0,0,0,82
+FRA,Jugador3,FRA,01/01/1995,Francia,3,Defensa,0,0,0,0,83
+FRA,Jugador4,FRA,01/01/1995,Francia,4,Defensa,0,0,0,0,84
+FRA,Jugador5,FRA,01/01/1995,Francia,5,Defensa,0,0,0,0,85
+FRA,Jugador6,FRA,01/01/1995,Francia,6,Volante,0,0,0,0,86
+FRA,Jugador7,FRA,01/01/1995,Francia,7,Volante,0,0,0,0,87
+FRA,Jugador8,FRA,01/01/1995,Francia,8,Volante,0,0,1,0,88
+FRA,Jugador9,FRA,01/01/1995,Francia,9,Delantero,0,0,2,1,89
+FRA,Jugador10,FRA,01/01/1995,Francia,10,Delantero,0,0,3,2,90
+FRA,Jugador11,FRA,01/01/1995,Francia,11,Delantero,0,0,4,3,91
+ENG,Jugador1,ENG,01/01/1995,Inglaterra,1,Portero,0,0,0,0,81
+ENG,Jugador2,ENG,01/01/1995,Inglaterra,2,Defensa,0,0,0,0,82
+ENG,Jugador3,ENG,01/01/1995,Inglaterra,3,Defensa,0,0,0,0,83
+ENG,Jugador4,ENG,01/01/1995,Inglaterra,4,Defensa,0,0,0,0,84
+ENG,Jugador5,ENG,01/01/1995,Inglaterra,5,Defensa,0,0,0,0,85
+ENG,Jugador6,ENG,01/01/1995,Inglaterra,6,Volante,0,0,0,0,86
+ENG,Jugador7,ENG,01/01/1995,Inglaterra,7,Volante,0,0,0,0,87
+ENG,Jugador8,ENG,01/01/1995,Inglaterra,8,Volante,0,0,1,0,88
+ENG,Jugador9,ENG,01/01/1995,Inglaterra,9,Delantero,0,0,2,1,89
+ENG,Jugador10,ENG,01/01/1995,Inglaterra,10,Delantero,0,0,3,2,90
+ENG,Jugador11,ENG,01/01/1995,Inglaterra,11,Delantero,0,0,4,3,91
+POR,Jugador1,POR,01/01/1995,Portugal,1,Portero,0,0,0,0,81
+POR,Jugador2,POR,01/01/1995,Portugal,2,Defensa,0,0,0,0,82
+POR,Jugador3,POR,01/01/1995,Portugal,3,Defensa,0,0,0,0,83
+POR,Jugador4,POR,01/01/1995,Portugal,4,Defensa,0,0,0,0,84
+POR,Jugador5,POR,01/01/1995,Portugal,5,Defensa,0,0,0,0,85
+POR,Jugador6,POR,01/01/1995,Portugal,6,Volante,0,0,0,0,86
+POR,Jugador7,POR,01/01/1995,Portugal,7,Volante,0,0,0,0,87
+POR,Jugador8,POR,01/01/1995,Portugal,8,Volante,0,0,1,0,88
+POR,Jugador9,POR,01/01/1995,Portugal,9,Delantero,0,0,2,1,89
+POR,Jugador10,POR,01/01/1995,Portugal,10,Delantero,0,0,3,2,90
+POR,Jugador11,POR,01/01/1995,Portugal,11,Delantero,0,0,4,3,91
+USA,Jugador1,USA,01/01/1995,Estados Unidos,1,Portero,0,0,0,0,81
+USA,Jugador2,USA,01/01/1995,Estados Unidos,2,Defensa,0,0,0,0,82
+USA,Jugador3,USA,01/01/1995,Estados Unidos,3,Defensa,0,0,0,0,83
+USA,Jugador4,USA,01/01/1995,Estados Unidos,4,Defensa,0,0,0,0,84
+USA,Jugador5,USA,01/01/1995,Estados Unidos,5,Defensa,0,0,0,0,85
+USA,Jugador6,USA,01/01/1995,Estados Unidos,6,Volante,0,0,0,0,86
+USA,Jugador7,USA,01/01/1995,Estados Unidos,7,Volante,0,0,0,0,87
+USA,Jugador8,USA,01/01/1995,Estados Unidos,8,Volante,0,0,1,0,88
+USA,Jugador9,USA,01/01/1995,Estados Unidos,9,Delantero,0,0,2,1,89
+USA,Jugador10,USA,01/01/1995,Estados Unidos,10,Delantero,0,0,3,2,90
+USA,Jugador11,USA,01/01/1995,Estados Unidos,11,Delantero,0,0,4,3,91
+MEX,Jugador1,MEX,01/01/1995,México,1,Portero,0,0,0,0,81
+MEX,Jugador2,MEX,01/01/1995,México,2,Defensa,0,0,0,0,82
+MEX,Jugador3,MEX,01/01/1995,México,3,Defensa,0,0,0,0,83
+MEX,Jugador4,MEX,01/01/1995,México,4,Defensa,0,0,0,0,84
+MEX,Jugador5,MEX,01/01/1995,México,5,Defensa,0,0,0,0,85
+MEX,Jugador6,MEX,01/01/1995,México,6,Volante,0,0,0,0,86
+MEX,Jugador7,MEX,01/01/1995,México,7,Volante,0,0,0,0,87
+MEX,Jugador8,MEX,01/01/1995,México,8,Volante,0,0,1,0,88
+MEX,Jugador9,MEX,01/01/1995,México,9,Delantero,0,0,2,1,89
+MEX,Jugador10,MEX,01/01/1995,México,10,Delantero,0,0,3,2,90
+MEX,Jugador11,MEX,01/01/1995,México,11,Delantero,0,0,4,3,91
+JPN,Jugador1,JPN,01/01/1995,Japón,1,Portero,0,0,0,0,81
+JPN,Jugador2,JPN,01/01/1995,Japón,2,Defensa,0,0,0,0,82
+JPN,Jugador3,JPN,01/01/1995,Japón,3,Defensa,0,0,0,0,83
+JPN,Jugador4,JPN,01/01/1995,Japón,4,Defensa,0,0,0,0,84
+JPN,Jugador5,JPN,01/01/1995,Japón,5,Defensa,0,0,0,0,85
+JPN,Jugador6,JPN,01/01/1995,Japón,6,Volante,0,0,0,0,86
+JPN,Jugador7,JPN,01/01/1995,Japón,7,Volante,0,0,0,0,87
+JPN,Jugador8,JPN,01/01/1995,Japón,8,Volante,0,0,1,0,88
+JPN,Jugador9,JPN,01/01/1995,Japón,9,Delantero,0,0,2,1,89
+JPN,Jugador10,JPN,01/01/1995,Japón,10,Delantero,0,0,3,2,90
+JPN,Jugador11,JPN,01/01/1995,Japón,11,Delantero,0,0,4,3,91
+KOR,Jugador1,KOR,01/01/1995,Corea del Sur,1,Portero,0,0,0,0,81
+KOR,Jugador2,KOR,01/01/1995,Corea del Sur,2,Defensa,0,0,0,0,82
+KOR,Jugador3,KOR,01/01/1995,Corea del Sur,3,Defensa,0,0,0,0,83
+KOR,Jugador4,KOR,01/01/1995,Corea del Sur,4,Defensa,0,0,0,0,84
+KOR,Jugador5,KOR,01/01/1995,Corea del Sur,5,Defensa,0,0,0,0,85
+KOR,Jugador6,KOR,01/01/1995,Corea del Sur,6,Volante,0,0,0,0,86
+KOR,Jugador7,KOR,01/01/1995,Corea del Sur,7,Volante,0,0,0,0,87
+KOR,Jugador8,KOR,01/01/1995,Corea del Sur,8,Volante,0,0,1,0,88
+KOR,Jugador9,KOR,01/01/1995,Corea del Sur,9,Delantero,0,0,2,1,89
+KOR,Jugador10,KOR,01/01/1995,Corea del Sur,10,Delantero,0,0,3,2,90
+KOR,Jugador11,KOR,01/01/1995,Corea del Sur,11,Delantero,0,0,4,3,91
