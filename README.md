@@ -2,6 +2,7 @@
 # [NOMBRE DEL PROYECTO o TAREA]
 ### 
 Kerry Hernández Alcázar 2026014741
+Emanuel Astorga Fernández 2026110512
 
 ### Estado del proyecto: [Malo|Regular|Buena|MuyBuena|Excelente|Superior **] MuyBuena
 ### Enlace del video:
